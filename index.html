@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>독서·사고·논술 교육과정</title>
+<style>
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#f5f7fb;color:#18202a}
+.page{min-height:100vh}
+.home{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px}
+.home-card{width:min(900px,100%);background:#fff;border-radius:22px;box-shadow:0 8px 30px rgba(0,0,0,.08);padding:48px}
+h1{margin:0 0 10px;text-align:center;font-size:32px;font-weight:800;letter-spacing:-.045em;line-height:1.25} .sub{margin:0 0 36px;text-align:center;color:#64748b;font-size:16px;font-weight:500;letter-spacing:-.02em;line-height:1.6}
+.menu{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.menu-btn{display:flex;align-items:center;justify-content:center;min-height:150px;padding:24px;border-radius:16px;background:#172033;color:#fff;border:0;text-decoration:none;font-size:20px;font-weight:700;letter-spacing:-.035em;line-height:1.4;cursor:pointer}
+.menu-btn:hover{opacity:.92;transform:translateY(-2px)}
+.connection{margin-top:24px;padding:18px 20px;border:1px solid #e2e8f0;border-radius:14px;background:#f8fafc;font-size:14px;color:#475569}
+.connection div{display:flex;justify-content:space-between;gap:16px;padding:7px 0}
+.connection div+div{border-top:1px solid #e2e8f0}
+.viewer{display:none;min-height:100vh} .viewer.active{display:block}
+.viewer header{padding:32px 36px;background:#172033;color:#fff}
+.viewer header h2{margin:0 0 8px;font-size:28px;font-weight:800;letter-spacing:-.045em;line-height:1.3} .viewer header p{margin:0;color:#cbd5e1;font-weight:500;letter-spacing:-.02em;line-height:1.6}
+.wrap{padding:24px 28px 40px} .card{background:#fff;border-radius:16px;box-shadow:0 4px 18px rgba(0,0,0,.07);overflow:hidden}
+.toolbar{padding:16px 18px;border-bottom:1px solid #e5e7eb;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+input{padding:10px 12px;border:1px solid #cbd5e1;border-radius:9px;min-width:260px;font-size:14px;font-weight:500;letter-spacing:-.02em;line-height:1.4} .badge{padding:7px 10px;background:#eef2ff;border-radius:999px;font-size:13px;font-weight:600;letter-spacing:-.02em;line-height:1.3}
+.table-wrap{overflow:auto;max-height:78vh} table{border-collapse:separate;border-spacing:0;width:max-content;min-width:100%}
+th,td{padding:12px 13px;border-right:1px solid #e5e7eb;border-bottom:1px solid #e5e7eb;vertical-align:top;line-height:1.55;font-size:14px;letter-spacing:-.025em;background:#fff}
+th{position:sticky;top:0;z-index:3;background:#eef2f7;font-weight:750;letter-spacing:-.03em;white-space:nowrap} tr:hover td{background:#f8fafc}
+.sticky1{position:sticky;left:0;z-index:2;background:#fff;min-width:95px;white-space:nowrap} .sticky2{position:sticky;left:95px;z-index:2;background:#fff;min-width:48px}
+thead .sticky1,thead .sticky2{z-index:5;background:#eef2f7} td.week{font-weight:700;text-align:center}
+.matrix .sticky1{min-width:165px} .matrix .sticky2{left:165px;min-width:145px} .matrix td.week{min-width:60px}
+.actions{display:flex;justify-content:flex-end;gap:10px;padding:12px 18px;border-top:1px solid #e5e7eb}
+.action{border:0;border-radius:8px;padding:9px 18px;background:#172033;color:#fff;font-size:14px;font-weight:700;letter-spacing:-.025em;line-height:1.4;cursor:pointer;text-decoration:none}
+.action:hover{opacity:.9}
+@media(max-width:700px){.home{padding:18px}.home-card{padding:32px 22px}h1{font-size:27px;letter-spacing:-.04em}.menu{grid-template-columns:1fr}.menu-btn{min-height:120px}}
+@media print{
+@page{size:A4 landscape;margin:4mm}
+html,body{width:100%;margin:0;padding:0;background:#fff}
+body{font-family:"Pretendard","Noto Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif}
+.home{display:none!important}
+.viewer{display:none!important}
+.viewer.printing{display:block!important}
+.viewer header{padding:0 0 3mm;background:#fff;color:#000}
+.viewer header h2{font-size:15pt;margin:0 0 1.5mm;line-height:1.2}
+.viewer header p{font-size:7pt;color:#333;margin:0;line-height:1.25}
+.wrap{padding:0}
+.card{box-shadow:none;border-radius:0;overflow:visible}
+.toolbar{padding:1mm 0 1.5mm;border:0}
+.toolbar input,.toolbar .badge,.actions{display:none!important}
+.table-wrap{overflow:visible;max-height:none;width:100%}
+table{width:100%!important;min-width:0!important;max-width:none!important;table-layout:fixed;border-collapse:collapse;border-spacing:0}
+th,td{position:static!important;box-sizing:border-box;padding:1.05mm 1.05mm;font-size:6.8pt;line-height:1.2;border:.3pt solid #9ca3af;vertical-align:middle;white-space:normal;word-break:keep-all;overflow-wrap:break-word}
+th{background:#eef2f7!important;font-size:6.9pt;font-weight:700;white-space:normal;line-height:1.15}
+
+/* 매트릭스 6열 */
+.matrix table th:nth-child(1),.matrix table td:nth-child(1){width:15%}
+.matrix table th:nth-child(2),.matrix table td:nth-child(2){width:12%}
+.matrix table th:nth-child(3),.matrix table td:nth-child(3){width:18%}
+.matrix table th:nth-child(4),.matrix table td:nth-child(4){width:18%}
+.matrix table th:nth-child(5),.matrix table td:nth-child(5){width:17%}
+.matrix table th:nth-child(6),.matrix table td:nth-child(6){width:20%}
+
+/* 커리큘럼 8열 */
+.curriculum table th:nth-child(1),.curriculum table td:nth-child(1){width:9%}
+.curriculum table th:nth-child(2),.curriculum table td:nth-child(2){width:5%}
+.curriculum table th:nth-child(3),.curriculum table td:nth-child(3){width:19%}
+.curriculum table th:nth-child(4),.curriculum table td:nth-child(4){width:12%}
+.curriculum table th:nth-child(5),.curriculum table td:nth-child(5){width:13%}
+.curriculum table th:nth-child(6),.curriculum table td:nth-child(6){width:13%}
+.curriculum table th:nth-child(7),.curriculum table td:nth-child(7){width:13%}
+.curriculum table th:nth-child(8),.curriculum table td:nth-child(8){width:16%}
+
+tr{break-inside:avoid;page-break-inside:avoid}
+thead{display:table-header-group}
+.matrix .sticky1,.matrix .sticky2,.curriculum .sticky1,.curriculum .sticky2{min-width:0!important;width:auto;left:auto!important}
+}
+</style>
+</head>
+<body>
+<section id="home" class="home page">
+<div class="home-card">
+<h1>독서·사고·논술 교육과정</h1>
+<p class="sub">7~10세 교육을 위한 마스터 자료</p>
+<nav class="menu" aria-label="자료 선택">
+<button class="menu-btn" type="button" onclick="showPage('matrix')">마스터 매트릭스</button>
+<button class="menu-btn" type="button" onclick="showPage('curriculum')">마스터 커리큘럼</button>
+</nav>
+ </div></section>
+
+<section id="matrix" class="viewer page matrix">
+<header><h2>마스터 매트릭스</h2><p>7~10세 독서·사고·논술 교육의 역량 체계 | 5대 핵심 역량 + 연령별 성취기준</p></header>
+<div class="wrap"><div class="card"><div class="toolbar"><input id="matrixSearch" placeholder="표 내용 검색…"><span class="badge">7~10세</span><span class="badge">32개 항목</span></div><div class="table-wrap"><table id="matrixTable"><thead><tr><th class="sticky1">핵심 역량</th><th class="sticky2">세부 영역</th><th class="">7세 — 발견·표현</th><th class="">8세 — 이해·설명</th><th class="">9세 — 주장·논리</th><th class="">10세 — 논증·설득·해결</th></tr></thead><tbody id="matrixBody"><tr><td class="sticky1">① 읽기·문해력</td><td class="sticky2">내용 이해</td><td class="">주요 인물·사건 파악</td><td class="">핵심 내용을 자신의 말로 설명</td><td class="">핵심·세부 구분</td><td class="">문제 해결에 필요한 정보 선별</td></tr><tr><td class="sticky1">① 읽기·문해력</td><td class="sticky2">구조 이해</td><td class="">처음·중간·끝 파악</td><td class="">사건 순서 파악</td><td class="">사건의 원인·결과 파악</td><td class="">글의 구조·전개 분석</td></tr><tr><td class="sticky1">① 읽기·문해력</td><td class="sticky2">인물·관점 이해</td><td class="">감정·행동 이해</td><td class="">행동 이유 설명</td><td class="">관점 비교</td><td class="">여러 관점의 근거 비교</td></tr><tr><td class="sticky1">① 읽기·문해력</td><td class="sticky2">요약</td><td class="">중요한 내용 말하기</td><td class="">짧게 요약</td><td class="">핵심 중심 요약</td><td class="">주장·근거 중심 요약</td></tr><tr><td class="sticky1">① 읽기·문해력</td><td class="sticky2">추론·주제</td><td class="">단서로 예측</td><td class="">단서로 생각 추측</td><td class="">근거 기반 추론</td><td class="">여러 해석 비교·타당성 검토</td></tr><tr><td class="sticky1">① 읽기·문해력</td><td class="sticky2">비판적 읽기</td><td class="">이상하거나 궁금한 부분 찾기</td><td class="">내용과 자신의 생각 구분</td><td class="">사실·의견 구분</td><td class="">주장·근거·자료의 적절성·신뢰성 검토</td></tr><tr><td class="sticky1">② 사고·질문</td><td class="sticky2">관찰·분류</td><td class="">특징 찾기</td><td class="">공통점·차이점과 기준</td><td class="">여러 기준 비교·분류</td><td class="">분류 기준의 적절성 판단</td></tr><tr><td class="sticky1">② 사고·질문</td><td class="sticky2">질문</td><td class="">궁금한 것 질문</td><td class="">왜·어떻게 질문</td><td class="">생각을 확장하는 질문</td><td class="">쟁점·전제 질문</td></tr><tr><td class="sticky1">② 사고·질문</td><td class="sticky2">원인·결과</td><td class="">왜 그런지 생각</td><td class="">원인→결과</td><td class="">여러 원인 분석</td><td class="">복합 원인 분석</td></tr><tr><td class="sticky1">② 사고·질문</td><td class="sticky2">판단</td><td class="">선택+이유</td><td class="">선택 이유 설명</td><td class="">판단 기준 제시</td><td class="">여러 기준·이해관계 고려</td></tr><tr><td class="sticky1">② 사고·질문</td><td class="sticky2">문제해결</td><td class="">해결 방법 생각</td><td class="">여러 해결책 생각</td><td class="">해결책 장단점 비교</td><td class="">대안 설계·실행 가능성 검토</td></tr><tr><td class="sticky1">② 사고·질문</td><td class="sticky2">의사결정</td><td class="">하나 선택</td><td class="">선택 이유 설명</td><td class="">선택지 비교</td><td class="">기준·근거를 활용한 의사결정</td></tr><tr><td class="sticky1">③ 소통·표현</td><td class="sticky2">말하기</td><td class="">경험·생각을 순서 있게 말하기</td><td class="">생각+이유 설명</td><td class="">핵심 주장 중심 말하기</td><td class="">목적·청중에 맞게 표현 조절</td></tr><tr><td class="sticky1">③ 소통·표현</td><td class="sticky2">경청</td><td class="">끝까지 듣기</td><td class="">들은 내용 다시 말하기</td><td class="">상대 의견 요약</td><td class="">상대 주장·근거 분석</td></tr><tr><td class="sticky1">③ 소통·표현</td><td class="sticky2">설명</td><td class="">간단한 설명</td><td class="">순서·이유 설명</td><td class="">근거 포함 설명</td><td class="">자료·사례를 활용한 체계적 설명</td></tr><tr><td class="sticky1">③ 소통·표현</td><td class="sticky2">발표</td><td class="">짧은 발표</td><td class="">책·주제 소개</td><td class="">주제 발표</td><td class="">도입-논증-결론 프레젠테이션</td></tr><tr><td class="sticky1">③ 소통·표현</td><td class="sticky2">질의응답</td><td class="">질문에 자기 생각 답변</td><td class="">질문 의도 이해·답변</td><td class="">주장·근거로 답변</td><td class="">즉석에서 논리적으로 답변</td></tr><tr><td class="sticky1">③ 소통·표현</td><td class="sticky2">설득</td><td class="">원하는 것을 이유와 함께 말하기</td><td class="">이유로 설득</td><td class="">근거·사례로 설득</td><td class="">상대 관점을 고려해 설득</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">주장</td><td class="">생각 말하기</td><td class="">생각+이유</td><td class="">명확한 주장+근거</td><td class="">쟁점 정의+논증 구조</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">근거</td><td class="">경험·관찰</td><td class="">책·이야기 근거</td><td class="">사례·사실·정보</td><td class="">자료의 신뢰성·적절성</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">반론</td><td class="">다른 생각이 있을 수 있음</td><td class="">다른 의견 찾기</td><td class="">상대 이유 이해·비교</td><td class="">상대 주장의 타당·취약 부분 분석</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">재반론</td><td class="">—</td><td class="">상대 의견과 비교</td><td class="">간단한 대응</td><td class="">근거를 통한 재반론</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">토론</td><td class="">차례·규칙 지키기</td><td class="">의견 듣고 주고받기</td><td class="">주장·근거 토론</td><td class="">쟁점 중심 토론</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">협상</td><td class="">원하는 것 말하고 상대 요구 듣기</td><td class="">서로 원하는 것 찾기</td><td class="">양보·대안 제시</td><td class="">이해관계 분석</td></tr><tr><td class="sticky1">④ 논증·토론·협상</td><td class="sticky2">타협·합의</td><td class="">함께 정하기</td><td class="">양보하기</td><td class="">공동 해결안 만들기</td><td class="">조건·책임을 포함한 합의안</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">문장·문단</td><td class="">생각을 짧은 문장으로</td><td class="">문장 연결</td><td class="">중심문장+뒷받침</td><td class="">문단 간 논리 관계</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">이야기 쓰기</td><td class="">그림·경험 이야기</td><td class="">시작-전개-끝</td><td class="">인물·사건·갈등</td><td class="">복합적인 이야기 구성</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">설명문</td><td class="">대상의 특징 설명</td><td class="">특징·과정 설명</td><td class="">정보 구조화</td><td class="">자료·사례 활용</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">감상·해석</td><td class="">느낌 쓰기</td><td class="">느낌+이유</td><td class="">작품 속 근거+해석</td><td class="">작품 분석·해석</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">주장·설득 글쓰기</td><td class="">주장문은 아직 없음</td><td class="">간단한 의견문·설득 경험</td><td class="">주장+근거</td><td class="">주장+근거+반론·재반론</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">논술</td><td class="">기초 준비</td><td class="">의견 정리</td><td class="">논술 기초</td><td class="">논증 구조 논술</td></tr><tr><td class="sticky1">⑤ 글쓰기·논술</td><td class="sticky2">퇴고</td><td class="">자신의 글 다시 보기</td><td class="">문장 고치기</td><td class="">근거·구성 점검</td><td class="">논리·근거·표현을 체계적으로 퇴고</td></tr></tbody></table></div><div class="actions"><button class="action" type="button" onclick="showPage('home')">이전</button><button class="action" type="button" onclick="printCurrent('matrix')">인쇄</button></div></div></div>
+</section>
+
+<section id="curriculum" class="viewer page curriculum">
+<header><h2>마스터 커리큘럼</h2><p>7~10세 독서·사고·논술 48주 교육과정 | 12개 핵심 탐구 단원 × 4주</p></header>
+<div class="wrap"><div class="card"><div class="toolbar"><input id="curriculumSearch" placeholder="표 내용 검색…"><span class="badge">7~10세</span><span class="badge">48주</span></div><div class="table-wrap"><table id="curriculumTable"><thead><tr><th class="sticky1">영역</th><th class="sticky2">주차</th><th class="">핵심 탐구 질문</th><th class="">핵심 역량</th><th class="">7세</th><th class="">8세</th><th class="">9세</th><th class="">10세</th></tr></thead><tbody id="curriculumBody"><tr><td class="sticky1">Ⅰ. 나</td><td class="sticky2 week">1</td><td class="">나는 어떤 사람일까?</td><td class="">자기 관찰·표현</td><td class="">좋아/싫어 말하기</td><td class="">특징+이유</td><td class="">나를 설명하는 근거</td><td class="">가치·관점 설명</td></tr><tr><td class="sticky1">Ⅰ. 나</td><td class="sticky2 week">2</td><td class="">사람을 알아가려면 무엇을 봐야 할까?</td><td class="">관찰</td><td class="">특징 찾기</td><td class="">구체적 설명</td><td class="">사실·해석 구분</td><td class="">관찰 사실·해석 분석</td></tr><tr><td class="sticky1">Ⅰ. 나</td><td class="sticky2 week">3</td><td class="">우리는 왜 궁금할까?</td><td class="">질문</td><td class="">궁금한 것</td><td class="">왜·어떻게 질문</td><td class="">깊은 질문</td><td class="">쟁점·전제 질문</td></tr><tr><td class="sticky1">Ⅰ. 나</td><td class="sticky2 week">4</td><td class="">나를 다른 사람에게 어떻게 소개할까?</td><td class="">소통·쓰기</td><td class="">그림+말</td><td class="">문장 소개</td><td class="">자기설명 글</td><td class="">가치·관점 자기소개</td></tr><tr><td class="sticky1">Ⅱ. 타인</td><td class="sticky2 week">5</td><td class="">사람은 왜 다르게 행동할까?</td><td class="">인물 이해</td><td class="">감정</td><td class="">행동 이유</td><td class="">원인 추론</td><td class="">배경·관점 분석</td></tr><tr><td class="sticky1">Ⅱ. 타인</td><td class="sticky2 week">6</td><td class="">같은 일을 보고도 다르게 생각할까?</td><td class="">관점</td><td class="">다름 인정</td><td class="">관점 비교</td><td class="">차이 이유</td><td class="">관점·근거 비교</td></tr><tr><td class="sticky1">Ⅱ. 타인</td><td class="sticky2 week">7</td><td class="">무엇이 같고 무엇이 다를까?</td><td class="">비교</td><td class="">같은/다른 점</td><td class="">기준 비교</td><td class="">의미 설명</td><td class="">기준 적절성 판단</td></tr><tr><td class="sticky1">Ⅱ. 타인</td><td class="sticky2 week">8</td><td class="">다른 사람의 말을 제대로 들으려면?</td><td class="">경청</td><td class="">끝까지 듣기</td><td class="">다시 말하기</td><td class="">핵심 요약</td><td class="">주장·근거 구분</td></tr><tr><td class="sticky1">Ⅲ. 선택</td><td class="sticky2 week">9</td><td class="">왜 이런 일이 생겼을까?</td><td class="">원인·결과</td><td class="">이유</td><td class="">원인→결과</td><td class="">여러 원인</td><td class="">복합 원인·영향</td></tr><tr><td class="sticky1">Ⅲ. 선택</td><td class="sticky2 week">10</td><td class="">무엇이 좋은 선택일까?</td><td class="">판단</td><td class="">선택+이유</td><td class="">두 선택 비교</td><td class="">판단 기준</td><td class="">기준+이해관계</td></tr><tr><td class="sticky1">Ⅲ. 선택</td><td class="sticky2 week">11</td><td class="">문제가 생기면 어떻게 해결할까?</td><td class="">문제해결</td><td class="">해결책</td><td class="">여러 해결책</td><td class="">장단점</td><td class="">실행 가능한 대안</td></tr><tr><td class="sticky1">Ⅲ. 선택</td><td class="sticky2 week">12</td><td class="">어떤 선택을 해야 할까?</td><td class="">의사결정</td><td class="">선택</td><td class="">이유</td><td class="">근거 비교</td><td class="">기준·근거·영향 종합</td></tr><tr><td class="sticky1">Ⅳ. 정보</td><td class="sticky2 week">13</td><td class="">글에서 정말 중요한 것은 무엇일까?</td><td class="">핵심 내용</td><td class="">중요한 장면</td><td class="">핵심</td><td class="">핵심·세부</td><td class="">핵심 주장·정보 선별</td></tr><tr><td class="sticky1">Ⅳ. 정보</td><td class="sticky2 week">14</td><td class="">긴 이야기를 짧게 말하려면?</td><td class="">요약</td><td class="">중요한 내용</td><td class="">짧게 정리</td><td class="">핵심 중심</td><td class="">주장·근거 중심</td></tr><tr><td class="sticky1">Ⅳ. 정보</td><td class="sticky2 week">15</td><td class="">그림과 사진도 정보를 줄까?</td><td class="">매체 읽기</td><td class="">그림 정보</td><td class="">사진 설명</td><td class="">이미지·글 비교</td><td class="">이미지 메시지 분석</td></tr><tr><td class="sticky1">Ⅳ. 정보</td><td class="sticky2 week">16</td><td class="">사실과 생각은 어떻게 다를까?</td><td class="">비판적 읽기</td><td class="">본 것/느낀 것</td><td class="">사실/생각</td><td class="">사실/의견</td><td class="">사실·의견·해석+근거</td></tr><tr><td class="sticky1">Ⅴ. 미디어</td><td class="sticky2 week">17</td><td class="">광고는 우리에게 무엇을 말할까?</td><td class="">광고 이해</td><td class="">광고 내용</td><td class="">목적</td><td class="">설득 방법</td><td class="">주장·근거·전략 분석</td></tr><tr><td class="sticky1">Ⅴ. 미디어</td><td class="sticky2 week">18</td><td class="">왜 어떤 광고는 믿고 싶어질까?</td><td class="">설득</td><td class="">좋아 보이는 이유</td><td class="">표현 방법</td><td class="">설득 요소</td><td class="">감정·권위·자료 전략</td></tr><tr><td class="sticky1">Ⅴ. 미디어</td><td class="sticky2 week">19</td><td class="">같은 내용을 다르게 보여줄 수 있을까?</td><td class="">관점·편집</td><td class="">그림 차이</td><td class="">표현 차이</td><td class="">정보 선택 차이</td><td class="">선택·배치 영향 분석</td></tr><tr><td class="sticky1">Ⅴ. 미디어</td><td class="sticky2 week">20</td><td class="">미디어를 볼 때 무엇을 확인해야 할까?</td><td class="">비판적 읽기</td><td class="">이상한 점</td><td class="">질문</td><td class="">정보/의견</td><td class="">출처·자료·관점 검토</td></tr><tr><td class="sticky1">Ⅵ. 문제</td><td class="sticky2 week">21</td><td class="">무엇이 문제일까?</td><td class="">문제 발견</td><td class="">불편한 점</td><td class="">문제 상황</td><td class="">원인</td><td class="">핵심 쟁점 정의</td></tr><tr><td class="sticky1">Ⅵ. 문제</td><td class="sticky2 week">22</td><td class="">문제를 해결할 방법은 몇 가지일까?</td><td class="">대안 생성</td><td class="">한 가지</td><td class="">여러 가지</td><td class="">장단점</td><td class="">실현 가능성</td></tr><tr><td class="sticky1">Ⅵ. 문제</td><td class="sticky2 week">23</td><td class="">어떤 해결책이 가장 나을까?</td><td class="">판단·선택</td><td class="">하나 고르기</td><td class="">이유</td><td class="">기준 비교</td><td class="">비용·효과·이해관계</td></tr><tr><td class="sticky1">Ⅵ. 문제</td><td class="sticky2 week">24</td><td class="">우리가 직접 해결책을 만든다면?</td><td class="">프로젝트</td><td class="">그림 해결책</td><td class="">설명</td><td class="">자료 활용</td><td class="">근거 있는 제안</td></tr><tr><td class="sticky1">Ⅶ. 주장</td><td class="sticky2 week">25</td><td class="">내 의견은 무엇일까?</td><td class="">주장</td><td class="">생각</td><td class="">생각+이유</td><td class="">주장+근거</td><td class="">쟁점 명확한 주장</td></tr><tr><td class="sticky1">Ⅶ. 주장</td><td class="sticky2 week">26</td><td class="">내 생각을 뒷받침하려면?</td><td class="">근거</td><td class="">경험</td><td class="">책 내용</td><td class="">사례·사실</td><td class="">자료 선택</td></tr><tr><td class="sticky1">Ⅶ. 주장</td><td class="sticky2 week">27</td><td class="">다른 생각은 왜 나올까?</td><td class="">관점·반대 의견</td><td class="">듣기</td><td class="">비교</td><td class="">찬반+이유</td><td class="">전제·근거 분석</td></tr><tr><td class="sticky1">Ⅶ. 주장</td><td class="sticky2 week">28</td><td class="">상대방의 생각을 정확히 이해했을까?</td><td class="">경청·요약</td><td class="">듣기</td><td class="">다시 말하기</td><td class="">주장 요약</td><td class="">주장·근거 재구성</td></tr><tr><td class="sticky1">Ⅷ. 토론</td><td class="sticky2 week">29</td><td class="">다른 의견에 어떻게 반응할까?</td><td class="">반대 의견 이해</td><td class="">다름 인정</td><td class="">다른 이유</td><td class="">상대 주장 이유</td><td class="">논리 타당성</td></tr><tr><td class="sticky1">Ⅷ. 토론</td><td class="sticky2 week">30</td><td class="">내 생각을 다시 설명할 수 있을까?</td><td class="">반론</td><td class="">인정</td><td class="">재설명</td><td class="">근거 대응</td><td class="">논리적 반론</td></tr><tr><td class="sticky1">Ⅷ. 토론</td><td class="sticky2 week">31</td><td class="">토론은 누가 이기는 것일까?</td><td class="">토론</td><td class="">차례·규칙</td><td class="">주고받기</td><td class="">주장·근거</td><td class="">반론·재반론</td></tr><tr><td class="sticky1">Ⅷ. 토론</td><td class="sticky2 week">32</td><td class="">사람을 설득하려면 무엇이 필요할까?</td><td class="">설득</td><td class="">이유</td><td class="">이유 설명</td><td class="">근거·사례</td><td class="">상대 관점 설득</td></tr><tr><td class="sticky1">Ⅸ. 협상</td><td class="sticky2 week">33</td><td class="">의견이 충돌하면 어떻게 할까?</td><td class="">갈등 이해</td><td class="">원하는 것</td><td class="">서로 원하는 것</td><td class="">갈등 원인</td><td class="">이해관계·쟁점</td></tr><tr><td class="sticky1">Ⅸ. 협상</td><td class="sticky2 week">34</td><td class="">둘 다 원하는 것을 얻을 수 있을까?</td><td class="">협상</td><td class="">함께 정하기</td><td class="">양보</td><td class="">대안</td><td class="">상호이익 대안</td></tr><tr><td class="sticky1">Ⅸ. 협상</td><td class="sticky2 week">35</td><td class="">모두가 받아들일 수 있는 방법은?</td><td class="">타협·합의</td><td class="">공동 결정</td><td class="">양보</td><td class="">공동 해결안</td><td class="">조건·책임 포함</td></tr><tr><td class="sticky1">Ⅸ. 협상</td><td class="sticky2 week">36</td><td class="">우리가 실제 문제를 해결한다면?</td><td class="">통합 프로젝트</td><td class="">우리 반 약속</td><td class="">공동 규칙</td><td class="">모의 회의</td><td class="">모의 공청회·협상</td></tr><tr><td class="sticky1">Ⅹ. 글</td><td class="sticky2 week">37</td><td class="">생각을 글로 옮기려면?</td><td class="">문장·문단</td><td class="">문장</td><td class="">문장 연결</td><td class="">중심문장+뒷받침</td><td class="">문단 간 논리</td></tr><tr><td class="sticky1">Ⅹ. 글</td><td class="sticky2 week">38</td><td class="">다른 사람에게 정확히 알려주려면?</td><td class="">설명문</td><td class="">대상 설명</td><td class="">특징·과정</td><td class="">정보 구조화</td><td class="">자료·사례</td></tr><tr><td class="sticky1">Ⅹ. 글</td><td class="sticky2 week">39</td><td class="">책을 읽고 어떻게 생각을 표현할까?</td><td class="">감상·해석</td><td class="">느낌</td><td class="">느낌+이유</td><td class="">근거+해석</td><td class="">작품 분석·해석</td></tr><tr><td class="sticky1">Ⅹ. 글</td><td class="sticky2 week">40</td><td class="">내 주장을 글로 만들려면?</td><td class="">주장·논술</td><td class="">생각 문장</td><td class="">의견 정리</td><td class="">주장+근거</td><td class="">주장+근거+반론</td></tr><tr><td class="sticky1">Ⅺ. 발표</td><td class="sticky2 week">41</td><td class="">발표는 무엇을 잘해야 할까?</td><td class="">발표 구성</td><td class="">순서</td><td class="">시작·내용·끝</td><td class="">핵심 주장</td><td class="">도입·논증·결론</td></tr><tr><td class="sticky1">Ⅺ. 발표</td><td class="sticky2 week">42</td><td class="">듣는 사람이 이해하려면?</td><td class="">청중·표현</td><td class="">쉽게 말하기</td><td class="">중요한 내용 선택</td><td class="">청중 고려</td><td class="">청중별 표현·자료 조절</td></tr><tr><td class="sticky1">Ⅺ. 발표</td><td class="sticky2 week">43</td><td class="">질문을 받으면 어떻게 할까?</td><td class="">Q&amp;A</td><td class="">질문 답하기</td><td class="">질문 뜻 이해</td><td class="">근거로 답하기</td><td class="">예상 밖 질문에 논리적 답변</td></tr><tr><td class="sticky1">Ⅺ. 발표</td><td class="sticky2 week">44</td><td class="">내 생각을 가장 잘 전달하려면?</td><td class="">통합 발표</td><td class="">짧은 발표</td><td class="">책·주제</td><td class="">주장 발표</td><td class="">프레젠테이션</td></tr><tr><td class="sticky1">Ⅻ. 프로젝트</td><td class="sticky2 week">45</td><td class="">무엇을 탐구하고 싶을까?</td><td class="">문제·질문 설정</td><td class="">궁금한 것</td><td class="">주제</td><td class="">문제+질문 구체화</td><td class="">연구 질문·쟁점</td></tr><tr><td class="sticky1">Ⅻ. 프로젝트</td><td class="sticky2 week">46</td><td class="">무엇을 알아봐야 할까?</td><td class="">자료 조사·분석</td><td class="">그림·책</td><td class="">책·자료</td><td class="">여러 자료 비교</td><td class="">신뢰성·관점 검토</td></tr><tr><td class="sticky1">Ⅻ. 프로젝트</td><td class="sticky2 week">47</td><td class="">내가 찾은 답은 무엇일까?</td><td class="">통합 결과물</td><td class="">생각책·전시</td><td class="">작은 책·발표</td><td class="">연구·주장 발표</td><td class="">연구보고서·토론·프레젠테이션</td></tr><tr><td class="sticky1">Ⅻ. 프로젝트</td><td class="sticky2 week">48</td><td class="">나는 어떻게 달라졌을까?</td><td class="">메타인지·성찰</td><td class="">내 생각 말하기</td><td class="">생각의 변화</td><td class="">근거로 변화 설명</td><td class="">판단 재검토</td></tr></tbody></table></div><div class="actions"><button class="action" type="button" onclick="showPage('home')">이전</button><button class="action" type="button" onclick="printCurrent('curriculum')">인쇄</button></div></div></div>
+</section>
+<script>
+(function(){
+  'use strict';
+
+  function getElement(id){
+    return document.getElementById(id);
+  }
+
+  window.showPage=function(name){
+    const home=getElement('home');
+    const target=getElement(name);
+    if(!home || !target) return;
+
+    document.querySelectorAll('.viewer').forEach(function(el){
+      el.classList.remove('active');
+    });
+
+    home.style.display=name==='home'?'flex':'none';
+
+    if(name!=='home' && target.classList.contains('viewer')){
+      target.classList.add('active');
+    }
+
+    window.scrollTo(0,0);
+  };
+
+  window.printCurrent=function(name){
+    const target=getElement(name);
+    if(!target || !target.classList.contains('viewer')) return;
+
+    document.querySelectorAll('.viewer').forEach(function(el){
+      el.classList.remove('printing');
+    });
+
+    target.classList.add('printing');
+    window.print();
+  };
+
+  function filterTable(inputId,tableId){
+    const input=getElement(inputId);
+    const table=getElement(tableId);
+    if(!input || !table) return;
+
+    const q=input.value.trim().toLocaleLowerCase();
+    table.querySelectorAll('tbody tr').forEach(function(row){
+      row.style.display=row.textContent.toLocaleLowerCase().includes(q)?'':'none';
+    });
+  }
+
+  function init(){
+    const matrixSearch=getElement('matrixSearch');
+    const curriculumSearch=getElement('curriculumSearch');
+
+    if(matrixSearch){
+      matrixSearch.addEventListener('input',function(){
+        filterTable('matrixSearch','matrixTable');
+      });
+    }
+
+    if(curriculumSearch){
+      curriculumSearch.addEventListener('input',function(){
+        filterTable('curriculumSearch','curriculumTable');
+      });
+    }
+
+    window.addEventListener('afterprint',function(){
+      document.querySelectorAll('.viewer').forEach(function(el){
+        el.classList.remove('printing');
+      });
+    });
+  }
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',init,{once:true});
+  }else{
+    init();
+  }
+})();
+</script>
+</body></html>
